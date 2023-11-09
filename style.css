@@ -81,3 +81,15 @@ button {
     flex-direction: column;
     gap: 5px;
 }
+
+.correct {
+    border: 1px solid #1d5e1e !important;
+    background-color: #29bf12 !important;
+    color: #fff;
+}
+
+.incorrect {
+    border: 1px solid #8b1611 !important;
+    background-color: #ff3e0a !important;
+    color: #fff;
+}

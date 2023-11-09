@@ -15,6 +15,7 @@ let correct = 0;
 let incorrect = 0;
 let counter1 = 0;
 let counter2 = 0;
+let counter3 = 0;
 let selectedAnswer = "";
 let countButtonClick = 0;
 
@@ -67,13 +68,19 @@ function getData(data) {
 
 // Click button to display the next question
 nextBtn.addEventListener("click", () => {
-    checkAnswer(selectedAnswer);
-    printData();
     nextBtn.disabled = true;
-    countButtonClick++;
-    if (countButtonClick === 15) {
-        endGame();
-    }
+
+    checkAnswer(selectedAnswer);
+    // setTimeout added
+    setTimeout(() => {
+        printData();
+        countButtonClick++;
+        if (countButtonClick === 15) {
+            endGame();
+        }
+    }, 1500);
+
+    setBackground();
 });
 
 // Select one country as an asnwer
@@ -81,11 +88,13 @@ answersDiv.addEventListener("click", (e) => {
     let child = Array.from(answersDiv.children);
     child.forEach((c) => {
         c.style.backgroundColor = "";
+        c.classList.remove("target");
     });
 
     if (e.target !== answersDiv) {
         nextBtn.disabled = false;
         e.target.style.backgroundColor = "#6faeeb";
+        e.target.classList.add("target");
         selectedAnswer = e.target.textContent;
     }
 });
@@ -136,6 +145,24 @@ function checkAnswer(selectAns) {
     }
 
     counter2++;
+}
+
+function setBackground() {
+    let child = Array.from(answersDiv.children);
+    child.forEach((element) => {
+        if (element.classList.contains("target")) {
+            if (element.textContent === countryName[counter3]) {
+                element.classList.add("correct");
+            } else {
+                element.classList.add("incorrect");
+            }
+        }
+        if (element.textContent === countryName[counter3]) {
+            element.classList.add("correct");
+        }
+    });
+
+    counter3++;
 }
 
 // End Game function
