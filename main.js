@@ -13,9 +13,7 @@ let countryFlag = [];
 let allCountries = [];
 let correct = 0;
 let incorrect = 0;
-let counter1 = 0;
-let counter2 = 0;
-let counter3 = 0;
+let counter = 0;
 let selectedAnswer = "";
 let countButtonClick = 0;
 
@@ -81,6 +79,7 @@ nextBtn.addEventListener("click", () => {
     }, 1500);
 
     setBackground();
+    counter++;
 });
 
 // Select one country as an asnwer
@@ -107,7 +106,7 @@ function printData() {
 
     if (countButtonClick < 14) {
         // Push real country
-        answers.push(countryName[counter1]);
+        answers.push(countryName[counter]);
 
         // Push 3 other countries
         for (let i = 0; i < 3; i++) {
@@ -120,7 +119,7 @@ function printData() {
 
         // Create img element and display the country image
         let img = document.createElement("img");
-        img.setAttribute("src", countryFlag[counter1]);
+        img.setAttribute("src", countryFlag[counter]);
         flag.appendChild(img);
 
         // Create 4 p element to display the countries
@@ -130,39 +129,33 @@ function printData() {
             answersDiv.appendChild(p);
         });
 
-        nrQuestion.textContent = counter1 + 1;
-
-        counter1++;
+        nrQuestion.textContent = counter + 1;
     }
 }
 
 // Check for the correct and incorrect answers
 function checkAnswer(selectAns) {
-    if (selectAns === countryName[counter2]) {
+    if (selectAns === countryName[counter]) {
         correct++;
     } else {
         incorrect++;
     }
-
-    counter2++;
 }
 
 function setBackground() {
     let child = Array.from(answersDiv.children);
     child.forEach((element) => {
         if (element.classList.contains("target")) {
-            if (element.textContent === countryName[counter3]) {
+            if (element.textContent === countryName[counter]) {
                 element.classList.add("correct");
             } else {
                 element.classList.add("incorrect");
             }
         }
-        if (element.textContent === countryName[counter3]) {
+        if (element.textContent === countryName[counter]) {
             element.classList.add("correct");
         }
     });
-
-    counter3++;
 }
 
 // End Game function
@@ -176,8 +169,7 @@ function endGame() {
     incorrectspan.textContent = incorrect;
     correct = 0;
     incorrect = 0;
-    counter1 = 0;
-    counter2 = 0;
+    counter = 0;
     countButtonClick = 0;
 }
 
